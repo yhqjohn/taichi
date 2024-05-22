@@ -205,11 +205,7 @@ configure_file(taichi/common/commit_hash.h.in ${CMAKE_SOURCE_DIR}/taichi/common/
 
 option(TI_WITH_C_API "build taichi runtime c-api library" ON)  # wheel-tag: aot
 option(TI_WITH_STATIC_C_API "build static taichi runtime c-api library" OFF)  # wheel-tag: static_aot
-option(TI_WITH_JULIA "build taichi runtime Julia binding" ON)  # wheel-tag: julia
 
-if (TI_WITH_JULIA)
-    include(cmake/TaichiJuliaAPI.cmake)
-endif ()
 
 if(TI_WITH_STATIC_C_API)
     set(TI_WITH_C_API ${TI_WITH_STATIC_C_API})
@@ -227,6 +223,12 @@ endif()
 
 if (TI_BUILD_EXAMPLES)
   include(cmake/TaichiExamples.cmake)
+endif()
+
+option(TI_WITH_JLL "Use Julia Language Library" ON)  # wheel-tag: jll
+
+if (TI_WITH_JLL)
+  include(cmake/TaichiJLL.cmake)
 endif()
 
 if (TI_BUILD_RHI_EXAMPLES)
